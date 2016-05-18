@@ -425,6 +425,12 @@ static CGFloat __smoothstep(CGFloat a, CGFloat b, CGFloat x)
 			_statusBarTresholdDir = _popupControllerState == LNPopupPresentationStateOpen ? 1 : -1;
 			_tresholdToPassForStatusBarUpdate = -10;
 			
+            if (_popupControllerState == LNPopupPresentationStateOpen) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:LNPopupWillClose object:self];
+            } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:LNPopupWillOpen object:self];
+            }
+            
 			[self _transitionToState:LNPopupPresentationStateTransitioning animated:YES completion:nil userOriginatedTransition:NO];
 			
 			_cachedDefaultFrame = [_containerController defaultFrameForBottomDockingView_internalOrDeveloper];
@@ -436,8 +442,13 @@ static CGFloat __smoothstep(CGFloat a, CGFloat b, CGFloat x)
 			CGFloat targetCenterY = MIN(_lastPopupBarLocation.y + [pgr translationInView:_popupBar.superview].y, _cachedDefaultFrame.origin.y - _popupBar.frame.size.height / 2);
 			targetCenterY = MAX(targetCenterY, _cachedOpenPopupFrame.origin.y + _popupBar.frame.size.height / 2);
 			
+            CGFloat maxValue = _cachedDefaultFrame.origin.y - _popupBar.frame.size.height / 2;
 			CGFloat currentCenterY = _popupBar.center.y;
-			
+            CGFloat percent = 1.0 - MAX((targetCenterY / maxValue * 100) / 100, 0);
+
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:percent] forKey:@"value"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:LNPopupIsTransitioning object:self userInfo:userInfo];
+            
 			_popupBar.center = CGPointMake(_popupBar.center.x, targetCenterY);
 			[self _repositionPopupContent];
 			_lastSeenMovement = CACurrentMediaTime();

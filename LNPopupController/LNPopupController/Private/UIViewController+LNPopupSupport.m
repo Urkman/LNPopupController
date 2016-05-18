@@ -21,6 +21,7 @@ NSString *const LNPopupWillOpen = @"LNPopupWillOpen";
 NSString *const LNPopupDidOpen = @"LNPopupDidOpen";
 NSString *const LNPopupWillClose = @"LNPopupWillClose";
 NSString *const LNPopupDidClose = @"LNPopupDidClose";
+NSString *const LNPopupIsTransitioning = @"LNPopupIsTransitioning";
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wincomplete-implementation"

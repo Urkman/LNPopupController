@@ -44,6 +44,7 @@ extern NSString *const LNPopupWillOpen;
 extern NSString *const LNPopupDidOpen;
 extern NSString *const LNPopupWillClose;
 extern NSString *const LNPopupDidClose;
+extern NSString *const LNPopupIsTransitioning;
 
 /**
  *  Popup presentation support for UIViewController subclasses.
