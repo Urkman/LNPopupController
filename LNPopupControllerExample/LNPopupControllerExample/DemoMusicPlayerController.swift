@@ -65,10 +65,13 @@ class DemoMusicPlayerController: UIViewController {
 			popupItem.subtitle = albumTitle
 		}
 	}
-	
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DemoMusicPlayerController.popupDidOpen), name: LNPopupDidOpen, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(DemoMusicPlayerController.popupDidClose), name: LNPopupDidClose, object: nil)
+        
 		songNameLabel.text = songTitle
 		albumNameLabel.text = albumTitle
 	}
@@ -76,7 +79,15 @@ class DemoMusicPlayerController: UIViewController {
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return .LightContent
 	}
-	
+
+    func popupDidOpen() {
+        print("Das ist ein Test")
+    }
+
+    func popupDidClose() {
+        print("Das ist ein Test")
+    }
+    
 	func _timerTicked(timer: NSTimer) {
 		popupItem.progress += 0.0002;
 		popupItem.accessibilityProgressLabel = NSLocalizedString("Playback Progress", comment: "")
