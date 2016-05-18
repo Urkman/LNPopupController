@@ -425,12 +425,6 @@ static CGFloat __smoothstep(CGFloat a, CGFloat b, CGFloat x)
 			_statusBarTresholdDir = _popupControllerState == LNPopupPresentationStateOpen ? 1 : -1;
 			_tresholdToPassForStatusBarUpdate = -10;
 			
-            if (_popupControllerState == LNPopupPresentationStateOpen) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:LNPopupWillClose object:self];
-            } else {
-                [[NSNotificationCenter defaultCenter] postNotificationName:LNPopupWillOpen object:self];
-            }
-            
 			[self _transitionToState:LNPopupPresentationStateTransitioning animated:YES completion:nil userOriginatedTransition:NO];
 			
 			_cachedDefaultFrame = [_containerController defaultFrameForBottomDockingView_internalOrDeveloper];
