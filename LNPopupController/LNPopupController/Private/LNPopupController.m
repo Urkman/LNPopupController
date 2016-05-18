@@ -330,8 +330,14 @@ static CGFloat __smoothstep(CGFloat a, CGFloat b, CGFloat x)
 	 {
 		 if(state == LNPopupPresentationStateClosed)
 		 {
+             [[NSNotificationCenter defaultCenter] postNotificationName:LNPopupWillClose object:self];
+             
 			 [contentController beginAppearanceTransition:NO animated:YES];
 		 }
+         else if(state == LNPopupPresentationStateOpen)
+         {
+             [[NSNotificationCenter defaultCenter] postNotificationName:LNPopupWillOpen object:self];
+         }
 		 
 		 [self _setContentToState:state];
 	 } completion:^(BOOL finished)
@@ -348,6 +354,8 @@ static CGFloat __smoothstep(CGFloat a, CGFloat b, CGFloat x)
 			 
 			 _popupContentView.accessibilityViewIsModal = NO;
 			 UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
+             
+             [[NSNotificationCenter defaultCenter] postNotificationName:LNPopupDidClose object:self];
 		 }
 		 else if(state == LNPopupPresentationStateOpen)
 		 {
@@ -355,6 +363,8 @@ static CGFloat __smoothstep(CGFloat a, CGFloat b, CGFloat x)
 			 
 			 _popupContentView.accessibilityViewIsModal = YES;
 			 UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, _popupContentView.popupCloseButton);
+             
+             [[NSNotificationCenter defaultCenter] postNotificationName:LNPopupDidOpen object:self];
 		 }
 		 
 		 _popupControllerState = state;

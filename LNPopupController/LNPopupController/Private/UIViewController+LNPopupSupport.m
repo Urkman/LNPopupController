@@ -17,6 +17,11 @@ const void* _LNPopupPresentationContainerViewControllerKey = &_LNPopupPresentati
 const void* _LNPopupContentViewControllerKey = &_LNPopupContentViewControllerKey;
 static const void* _LNPopupBottomBarSupportKey = &_LNPopupBottomBarSupportKey;
 
+NSString *const LNPopupWillOpen = @"LNPopupWillOpen";
+NSString *const LNPopupDidOpen = @"LNPopupDidOpen";
+NSString *const LNPopupWillClose = @"LNPopupWillClose";
+NSString *const LNPopupDidClose = @"LNPopupDidClose";
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wincomplete-implementation"
 @implementation UIViewController (LNPopupSupportPrivate)

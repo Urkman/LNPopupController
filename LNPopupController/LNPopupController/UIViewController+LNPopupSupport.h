@@ -35,6 +35,16 @@ typedef NS_ENUM(NSUInteger, LNPopupPresentationState){
 	LNPopupPresentationStateOpen,
 };
 
+//NSString *const LNPopupWillOpen = @"LNPopupWillOpen";
+//NSString *const LNPopupDidOpen = @"LNPopupDidOpen";
+//NSString *const LNPopupWillClose = @"LNPopupWillClose";
+//NSString *const LNPopupDidClose = @"LNPopupDidClose";
+
+extern NSString *const LNPopupWillOpen;
+extern NSString *const LNPopupDidOpen;
+extern NSString *const LNPopupWillClose;
+extern NSString *const LNPopupDidClose;
+
 /**
  *  Popup presentation support for UIViewController subclasses.
  */
