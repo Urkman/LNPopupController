@@ -20,6 +20,7 @@ const NSInteger LNBarStyleInherit = -1;
 	UIView* _titlesView;
 	__MarqueeLabel* _titleLabel;
 	__MarqueeLabel* _subtitleLabel;
+    UIImageView* _imageView;
 	BOOL _needsLabelsLayout;
 	
 	UIColor* _userTintColor;
@@ -223,6 +224,13 @@ const NSInteger LNBarStyleInherit = -1;
 	[self _setNeedsTitleLayout];
 }
 
+- (void)setImage:(UIImage *)image
+{
+    _image = [image copy];
+    
+    [self _setNeedsTitleLayout];
+}
+
 - (void)setSubtitle:(NSString *)subtitle
 {
 	_subtitle = [subtitle copy];
@@ -293,6 +301,17 @@ const NSInteger LNBarStyleInherit = -1;
 		
 		if(_needsLabelsLayout == YES)
 		{
+            if(_imageView == nil)
+            {
+                _imageView = [UIImageView new];
+                _imageView.contentMode = UIViewContentModeScaleAspectFit;
+                [_titlesView addSubview:_imageView];
+            }
+            
+            if (_image != nil) {
+                _imageView.image = _image;
+            }
+            
 			if(_titleLabel == nil)
 			{
 				_titleLabel = [self _newMarqueeLabel];
@@ -337,6 +356,8 @@ const NSInteger LNBarStyleInherit = -1;
 		
 		[self _setTitleLableFontsAccordingToBarStyleAndTint];
 		
+        _imageView.frame = _titlesView.bounds;
+        
 		CGRect titleLabelFrame = _titlesView.bounds;
 		titleLabelFrame.size.height = 40;
 		if(_subtitle.length > 0)
