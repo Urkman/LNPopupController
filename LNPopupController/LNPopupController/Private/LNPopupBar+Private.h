@@ -29,6 +29,8 @@ extern const CGFloat LNPopupBarHeight;
 @property (nonatomic, copy) NSString* title;
 @property (nonatomic, copy) NSString* subtitle;
 @property (nonatomic, copy) UIImage* image;
+@property (nonatomic) CGFloat imageMargin;
+@property (nonatomic) CGFloat barHeight;
 
 @property (nonatomic, strong) UIToolbar* toolbar;
 

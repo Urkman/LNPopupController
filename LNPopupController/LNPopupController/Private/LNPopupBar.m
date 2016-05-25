@@ -35,8 +35,9 @@ const NSInteger LNBarStyleInherit = -1;
 }
 
 - (nonnull instancetype)initWithFrame:(CGRect)frame
-{	
-	CGRect fullFrame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, LNPopupBarHeight);
+{
+    CGFloat height = _barHeight == 0 ? LNPopupBarHeight : _barHeight;
+	CGRect fullFrame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, height);
 	
 	self = [super initWithFrame:frame];
 	
@@ -231,6 +232,20 @@ const NSInteger LNBarStyleInherit = -1;
     [self _setNeedsTitleLayout];
 }
 
+- (void)setImageMargin:(CGFloat)imageMargin
+{
+    _imageMargin = imageMargin;
+    
+    [self _setNeedsTitleLayout];
+}
+
+- (void)setBarHeight:(CGFloat)barHeight
+{
+    _barHeight = barHeight;
+    
+    [self _setNeedsTitleLayout];
+}
+
 - (void)setSubtitle:(NSString *)subtitle
 {
 	_subtitle = [subtitle copy];
@@ -282,6 +297,10 @@ const NSInteger LNBarStyleInherit = -1;
 		__block CGFloat leftMargin = 0;
 		__block CGFloat rightMargin = self.bounds.size.width;
 		
+        _toolbar.frame = CGRectMake(_toolbar.frame.origin.x, _toolbar.frame.origin.y, _toolbar.frame.size.width, _barHeight);
+        _titlesView.frame = CGRectMake(_titlesView.frame.origin.x, _titlesView.frame.origin.y, _titlesView.frame.size.width, _barHeight);
+        
+        
 		[self.leftBarButtonItems enumerateObjectsUsingBlock:^(UIBarButtonItem* barButtonItem, NSUInteger idx, BOOL* stop)
 		 {
 			 UIView* itemView = [barButtonItem valueForKey:@"view"];
@@ -356,7 +375,8 @@ const NSInteger LNBarStyleInherit = -1;
 		
 		[self _setTitleLableFontsAccordingToBarStyleAndTint];
 		
-        _imageView.frame = _titlesView.bounds;
+        CGFloat margin = _imageMargin;
+        _imageView.frame = CGRectMake(0, margin, _titlesView.bounds.size.width, _titlesView.bounds.size.height - margin * 2);
         
 		CGRect titleLabelFrame = _titlesView.bounds;
 		titleLabelFrame.size.height = 40;

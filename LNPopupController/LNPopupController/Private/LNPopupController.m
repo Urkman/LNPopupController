@@ -503,6 +503,16 @@ static CGFloat __smoothstep(CGFloat a, CGFloat b, CGFloat x)
     _popupBar.image = _currentPopupItem.image;
 }
 
+- (void)_reconfigure_imageMargin
+{
+    _popupBar.imageMargin = _currentPopupItem.imageMargin;
+}
+
+- (void)_reconfigure_barHeight
+{
+    _popupBar.barHeight = _currentPopupItem.barHeight;
+}
+
 - (void)_reconfigure_progress
 {
 	[UIView performWithoutAnimation:^{
@@ -591,7 +601,7 @@ static CGFloat __smoothstep(CGFloat a, CGFloat b, CGFloat x)
 		}
 	}
 	
-	NSArray<NSString*>* keys = @[@"title", @"subtitle", @"image", @"progress", @"leftBarButtonItems", @"accessibilityLavel", @"accessibilityHint", @"accessibilityProgressLabel", @"accessibilityProgressValue"];
+	NSArray<NSString*>* keys = @[@"title", @"subtitle", @"image", @"imageMargin", @"barHeight", @"progress", @"leftBarButtonItems", @"accessibilityLavel", @"accessibilityHint", @"accessibilityProgressLabel", @"accessibilityProgressValue"];
 	[keys enumerateObjectsUsingBlock:^(NSString * __nonnull key, NSUInteger idx, BOOL * __nonnull stop) {
 		[self _popupItem:_currentPopupItem didChangeValueForKey:key];
 	}];
@@ -689,7 +699,9 @@ static CGFloat __smoothstep(CGFloat a, CGFloat b, CGFloat x)
 		[UIView animateWithDuration:animated ? 0.5 : 0.0 delay:0.0 usingSpringWithDamping:500 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^
 		 {
 			 CGRect barFrame = _popupBar.frame;
-			 barFrame.size.height = LNPopupBarHeight;
+             
+             CGFloat height = _popupBar.barHeight == 0 ? LNPopupBarHeight : _popupBar.barHeight;
+			 barFrame.size.height = height;
 			 _popupBar.frame = barFrame;
 			 _popupBar.frame = [self _frameForClosedPopupBar];
 			 
