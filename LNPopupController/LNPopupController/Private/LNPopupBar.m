@@ -300,6 +300,9 @@ const NSInteger LNBarStyleInherit = -1;
         _toolbar.frame = CGRectMake(_toolbar.frame.origin.x, _toolbar.frame.origin.y, _toolbar.frame.size.width, _barHeight);
         _titlesView.frame = CGRectMake(_titlesView.frame.origin.x, _titlesView.frame.origin.y, _titlesView.frame.size.width, _barHeight);
         
+        if (_barColor != nil) {
+            [self setBarTintColor:_barColor];
+        }
         
 		[self.leftBarButtonItems enumerateObjectsUsingBlock:^(UIBarButtonItem* barButtonItem, NSUInteger idx, BOOL* stop)
 		 {

@@ -31,6 +31,9 @@ extern const CGFloat LNPopupBarHeight;
 @property (nonatomic, copy) UIImage* image;
 @property (nonatomic) CGFloat imageMargin;
 @property (nonatomic) CGFloat barHeight;
+@property (nonatomic) UIColor *barColor;
+@property (nonatomic) BOOL hideCloseIcon;
+
 
 @property (nonatomic, strong) UIToolbar* toolbar;
 
